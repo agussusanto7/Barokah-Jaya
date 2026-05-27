@@ -1,10 +1,10 @@
-# POS Madura 222 - Sistem Kasir & Manajemen Toko Barokah Jaya
+# Barokah Jaya - Sistem Kasir & Manajemen Toko Barokah Jaya
 
 Aplikasi Point of Sale (POS) berbasis web modern yang dibangun dengan Laravel 12 dan Livewire 3.6 untuk mengelola transaksi penjualan, inventori produk, dan analisis bisnis dengan integrasi AI dari Google Gemini.
 
 ## 📋 Deskripsi Singkat
 
-**POS Madura 222** adalah sistem kasir komprehensif untuk "Toko Barokah Jaya" yang menawarkan:
+**Aplikasi Point of Sale (POS)** adalah sistem kasir komprehensif untuk "Toko Barokah Jaya" yang menawarkan:
 - 💳 **Manajemen Transaksi** - Sistem pembayaran dengan berbagai metode (cash, transfer, QRIS)
 - 📦 **Manajemen Inventori** - Kontrol stok produk otomatis dengan kategori
 - 📊 **Dashboard Analitik** - Laporan penjualan real-time dan statistik bisnis
@@ -190,7 +190,7 @@ app/Services/
 1. **Clone Repository**
 ```bash
 git clone <repository-url>
-cd "pos madura 222"
+cd "Barokah-Jaya"
 ```
 
 2. **Install Dependencies**

@@ -168,7 +168,7 @@ class Cart extends Component
     public function render()
     {
         return view('livewire.customer.cart')
-            ->layout('components.layouts.customer', [
+            ->layout('components.layouts.app', [
                 'title' => 'Keranjang Belanja',
                 'subtitle' => 'Kelola produk di keranjang Anda'
             ]);

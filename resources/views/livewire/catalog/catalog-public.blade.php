@@ -74,14 +74,14 @@
 
                     <!-- Cart Icon -->
                     <div class="relative">
-                        <button class="text-slate-600 hover:text-slate-900 relative">
+                        <a href="{{ route('cart.simple') }}" class="text-slate-600 hover:text-slate-900 relative" aria-label="Keranjang">
                             <i class="fas fa-shopping-cart text-xl"></i>
                             @if (count(session()->get('cart', [])) > 0)
                                 <span class="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
                                     {{ count(session()->get('cart', [])) }}
                                 </span>
                             @endif
-                        </button>
+                        </a>
                     </div>
                 </div>
             </div>

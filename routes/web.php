@@ -5,6 +5,7 @@ use App\Http\Controllers\GeminiAIController;
 use App\Livewire\Auth\Login;
 use App\Livewire\Auth\Register;
 use App\Livewire\Catalog\CatalogPublic;
+use App\Livewire\Customer\Cart;
 use App\Livewire\Dashboard;
 use App\Livewire\Products\ProductIndex;
 use App\Livewire\Categories\CategoryIndex;
@@ -13,6 +14,7 @@ use App\Livewire\Pos\PosIndex;
 
 // Public routes - untuk customer
 Route::get('/', CatalogPublic::class)->name('catalog');
+Route::get('/cart', Cart::class)->name('cart.simple');
 Route::get('/register', Register::class)->name('register');
 
 // Guest routes - untuk login admin/karyawan
