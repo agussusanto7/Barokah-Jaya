@@ -146,8 +146,11 @@ class Cart extends Component
 
     public function checkout()
     {
-        if (!Auth::check() || !Auth::user()->isCustomer()) {
-            return redirect()->route('login');
+        if (!Auth::check()) {
+            return redirect()->guest(route('login'));
+        }
+        if (!Auth::user()->isCustomer()) {
+            return redirect()->route('catalog');
         }
 
         if (empty($this->cart)) {
@@ -155,7 +158,6 @@ class Cart extends Component
             return;
         }
 
-        // Redirect ke checkout page (akan dibuat selanjutnya)
         return redirect()->route('customer.checkout');
     }
 

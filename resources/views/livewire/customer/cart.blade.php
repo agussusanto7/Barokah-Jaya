@@ -6,16 +6,48 @@
                     <i class="fas fa-store text-xl"></i>
                     <span class="font-bold text-lg">Toko Barokah Jaya</span>
                 </a>
-                <div class="flex items-center space-x-3 text-sm text-slate-600">
-                    <a href="{{ route('catalog') }}" class="hover:text-slate-900">Katalog</a>
-                    <span>/</span>
-                    <span class="text-slate-900 font-medium">Keranjang</span>
+                <div class="flex items-center space-x-6">
+                    <div class="flex items-center space-x-3 text-sm text-slate-600">
+                        <a href="{{ route('catalog') }}" class="hover:text-slate-900">Katalog</a>
+                        <span>/</span>
+                        <span class="text-slate-900 font-medium">Keranjang</span>
+                    </div>
+                    @auth
+                        <div class="flex items-center space-x-4">
+                            <span class="text-sm text-slate-600">Halo, {{ auth()->user()->name }}</span>
+                            <form method="POST" action="{{ route('logout') }}">
+                                @csrf
+                                <button type="submit" class="text-sm text-slate-600 hover:text-slate-900 font-medium">
+                                    Logout
+                                </button>
+                            </form>
+                        </div>
+                    @else
+                        <div class="flex items-center space-x-3 text-sm">
+                            <a href="{{ route('login') }}" class="text-slate-600 hover:text-slate-900 font-medium">Login</a>
+                            <a href="{{ route('register') }}" class="bg-slate-900 text-white px-3 py-1.5 rounded-lg hover:bg-slate-800 transition-colors">
+                                Daftar
+                            </a>
+                        </div>
+                    @endauth
                 </div>
             </div>
         </div>
     </div>
 
     <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        @if (session('error'))
+            <div class="mb-6 bg-red-50 border border-red-200 rounded-xl p-4">
+                <div class="flex items-center space-x-3">
+                    <svg class="w-5 h-5 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                    <p class="text-red-800 font-medium text-sm">{{ session('error') }}</p>
+                </div>
+            </div>
+        @endif
+
         <div class="flex items-center justify-between mb-6">
             <h1 class="text-2xl font-bold text-slate-900">Keranjang Belanja</h1>
             @if (!empty($cart))
@@ -92,17 +124,23 @@
                 </div>
             </div>
 
-            <div class="mt-6 bg-white rounded-xl border border-slate-200 p-6 flex items-center justify-between">
+            <div class="mt-6 bg-white rounded-xl border border-slate-200 p-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                 <div>
                     <p class="text-sm text-slate-500">Total</p>
                     <p class="text-2xl font-bold text-slate-900">
                         Rp {{ number_format($total, 0, ',', '.') }}
                     </p>
                 </div>
-                <a href="{{ route('catalog') }}"
-                    class="px-4 py-2 border border-slate-300 rounded-lg text-slate-700 hover:bg-slate-50 transition-colors">
-                    Lanjut Belanja
-                </a>
+                <div class="flex items-center gap-3">
+                    <a href="{{ route('catalog') }}"
+                        class="px-4 py-2 border border-slate-300 rounded-lg text-slate-700 hover:bg-slate-50 transition-colors">
+                        Lanjut Belanja
+                    </a>
+                    <a href="{{ route('customer.checkout') }}"
+                        class="px-4 py-2 bg-slate-900 text-white rounded-lg hover:bg-slate-800 transition-colors font-medium">
+                        {{ auth()->check() ? 'Checkout' : 'Login untuk Checkout' }}
+                    </a>
+                </div>
             </div>
         @endif
     </div>

@@ -6,6 +6,7 @@ use App\Livewire\Auth\Login;
 use App\Livewire\Auth\Register;
 use App\Livewire\Catalog\CatalogPublic;
 use App\Livewire\Customer\Cart;
+use App\Http\Controllers\CheckoutController;
 use App\Livewire\Dashboard;
 use App\Livewire\Products\ProductIndex;
 use App\Livewire\Categories\CategoryIndex;
@@ -15,6 +16,9 @@ use App\Livewire\Pos\PosIndex;
 // Public routes - untuk customer
 Route::get('/', CatalogPublic::class)->name('catalog');
 Route::get('/cart', Cart::class)->name('cart.simple');
+Route::get('/checkout', [CheckoutController::class, 'index'])->name('customer.checkout');
+Route::post('/checkout', [CheckoutController::class, 'process'])->name('customer.checkout.process');
+Route::get('/checkout/success/{transactionId}', [CheckoutController::class, 'success'])->name('checkout.success');
 Route::get('/register', Register::class)->name('register');
 
 // Guest routes - untuk login admin/karyawan
@@ -80,6 +84,16 @@ Route::get('/test-gemini', function () {
 
 // Auth routes
 Route::middleware('auth')->group(function () {
+    Route::post('/logout', function () {
+        auth()->logout();
+        request()->session()->invalidate();
+        request()->session()->regenerateToken();
+        return redirect('/');
+    })->name('logout');
+});
+
+// Admin & kasir routes
+Route::middleware(['auth', 'role:admin,kasir'])->group(function () {
     Route::get('/dashboard', Dashboard::class)->name('dashboard');
     Route::get('/products', ProductIndex::class)->name('products.index');
     Route::get('/categories', CategoryIndex::class)->name('categories.index');
@@ -88,11 +102,4 @@ Route::middleware('auth')->group(function () {
 
     // AI Chat endpoint
     Route::post('/gemini/chat', [GeminiAIController::class, 'chat'])->name('gemini.chat');
-
-    Route::post('/logout', function () {
-        auth()->logout();
-        request()->session()->invalidate();
-        request()->session()->regenerateToken();
-        return redirect('/');
-    })->name('logout');
 });

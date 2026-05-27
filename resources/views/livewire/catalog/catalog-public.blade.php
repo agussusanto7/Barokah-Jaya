@@ -61,9 +61,17 @@
                     @auth
                         <div class="flex items-center space-x-4">
                             <span class="text-sm text-slate-600">Halo, {{ auth()->user()->name }}</span>
-                            <a href="{{ route('dashboard') }}" class="text-slate-600 hover:text-slate-900">
-                                <i class="fas fa-user"></i>
-                            </a>
+                            @if (auth()->user()->isAdmin() || auth()->user()->isKasir())
+                                <a href="{{ route('dashboard') }}" class="text-slate-600 hover:text-slate-900">
+                                    <i class="fas fa-user"></i>
+                                </a>
+                            @endif
+                            <form method="POST" action="{{ route('logout') }}">
+                                @csrf
+                                <button type="submit" class="text-sm text-slate-600 hover:text-slate-900 font-medium">
+                                    Logout
+                                </button>
+                            </form>
                         </div>
                     @else
                         <div class="flex items-center space-x-4">

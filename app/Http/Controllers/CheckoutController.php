@@ -13,8 +13,11 @@ class CheckoutController extends Controller
 {
     public function index()
     {
-        if (!auth()->check() || !auth()->user()->isCustomer()) {
-            return redirect()->route('login');
+        if (!auth()->check()) {
+            return redirect()->guest(route('login'));
+        }
+        if (!auth()->user()->isCustomer()) {
+            return redirect()->route('catalog');
         }
 
         if (!session()->has('cart') || count(session()->get('cart')) == 0) {
@@ -26,14 +29,17 @@ class CheckoutController extends Controller
 
     public function process(Request $request)
     {
-        if (!auth()->check() || !auth()->user()->isCustomer()) {
-            return redirect()->route('login');
+        if (!auth()->check()) {
+            return redirect()->guest(route('login'));
+        }
+        if (!auth()->user()->isCustomer()) {
+            return redirect()->route('catalog');
         }
 
         $request->validate([
             'phone' => 'required|string|regex:/^[0-9]{10,13}$/',
             'address' => 'required|string|min:10',
-            'payment_method' => 'required|in:transfer,cod',
+            'payment_method' => 'required|in:cash,transfer,qris',
         ]);
 
         $cart = session()->get('cart', []);

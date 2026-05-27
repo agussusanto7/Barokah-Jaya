@@ -1,3 +1,5 @@
+![Kasir Dashboard AI](assets/image.png)
+
 # Barokah Jaya - Sistem Kasir & Manajemen Toko Barokah Jaya
 
 Aplikasi Point of Sale (POS) berbasis web modern yang dibangun dengan Laravel 12 dan Livewire 3.6 untuk mengelola transaksi penjualan, inventori produk, dan analisis bisnis dengan integrasi AI dari Google Gemini.

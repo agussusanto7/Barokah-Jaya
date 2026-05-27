@@ -47,10 +47,14 @@ class Login extends Component
             logger()->info('LOGIN SUCCESS', ['user_id' => $user->id, 'role' => $user->role]);
 
             if ($user->role === 'admin') {
-                return redirect()->intended('/dashboard')->with('navigate');
+                return redirect()->intended(route('dashboard'))->with('navigate');
             }
 
-            return redirect()->intended('/kasir');
+            if ($user->role === 'kasir') {
+                return redirect()->intended(route('pos.index'));
+            }
+
+            return redirect()->intended(route('catalog'));
         }
 
         logger()->warning('LOGIN FAILED', [
